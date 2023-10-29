@@ -1,10 +1,19 @@
 <?php
 /*
 Plugin Name: WooAdvancePay
-Description: Partial payment for WooCommerce with locality-based delivery charge.
-Version: 1.0
+Description: Enhance WooCommerce with advance payment for cash on delivery to a certain locality.
+Version: 1.1
 Author: Hasan Rizvee
 */
+
+// Add your custom functionality here
+
+
+// Enqueue JavaScript for conditional application
+function woo_advancepay_enqueue_script() {
+    wp_enqueue_script('woo-advancepay-script', plugins_url('/main.js', __FILE__), array('jquery'), null, true);
+}
+add_action('wp_enqueue_scripts', 'woo_advancepay_enqueue_script');
 
 // Define a constant for the plugin directory path.
 define('WOO_ADVANCE_PAY_DIR', plugin_dir_path(__FILE__));
