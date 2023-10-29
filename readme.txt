@@ -15,6 +15,9 @@ Features:
 - Offer locality-based delivery charge options.
 - Easy integration with WooCommerce checkout.
 - Customizable with Tailwind CSS for a sleek design.
+- Conditional application: WooAdvancePay applies only when customers choose cash on delivery.
+- Location-based: It applies to to certain selected areas.
+
 
 == Installation ==
 1. Upload the 'woo-advance-pay' folder to the '/wp-content/plugins/' directory.
@@ -29,8 +32,13 @@ Q: How can I customize the look of the plugin pages?
 A: We've used the Tailwind CSS framework for styling. You can further customize the styles by editing the 'styles.css' file in the 'assets/css' folder of the plugin.
 
 == Changelog ==
+
 = 1.0 =
 * Initial release of WooAdvancePay.
+
+= 1.1 =
+* Enhanced functionality to work with all WooCommerce payment gateways.
+* Added conditional application based on the selected payment method and shipping location.
 
 == Screenshots ==
 1. WooAdvancePay settings page.
