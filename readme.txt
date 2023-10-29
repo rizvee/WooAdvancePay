@@ -3,7 +3,7 @@ Contributors: Hasan Rizvee
 Tags: WooCommerce, Payment Gateway, Delivery Charge
 Requires at least: 5.0
 Tested up to: 5.9
-Stable tag: 1.0
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
