@@ -49,7 +49,7 @@ Customers can make partial payments during the checkout process when the cash-on
 
 ## Upgrade Notice
 
-[Include any important information about upgrading, if necessary]
+[NONE]
 
 ## Author
 
@@ -61,3 +61,6 @@ Customers can make partial payments during the checkout process when the cash-on
 
 This plugin is licensed under the [MIT License](LICENSE).
 
+## Uses/Example
+Navigate to the checkout page of this website
+- **URL:** [saviorlifestyle.com](https://saviorlifestyle.com)
