@@ -33,17 +33,47 @@ Yes, WooAdvancePay allows you to define specific localities where advance paymen
 
 Customers can make partial payments during the checkout process when the cash-on-delivery option is selected.
 
-## Changelog
+# Changelog
 
-### 1.2.2
-- Fixed a bug related to partial payment calculations.
+All notable changes to WooAdvancePay will be documented in this file.
 
-### 1.2.1
-- Improved compatibility with the latest version of WooCommerce.
+## `1.2.2`
 
-### 1.2.0
-- Added localization support.
+### Fixed
+- Resolved a bug related to partial payment calculations.
+
+## `1.2.1`
+
+### Improved
+- Enhanced compatibility with the latest version of WooCommerce.
+
+## `1.2.0`
+
+### Added
+- Added localization support for better translation.
 - Fixed minor styling issues in the admin panel.
+
+## `1.1.0`
+
+### Added
+- Introduced a new feature for customizing localized payments.
+
+### Changed
+- Updated the user interface for a better experience.
+
+## `1.0.1`
+
+### Fixed
+- Addressed issues with order processing.
+
+### Changed
+- Improved the overall stability of the plugin.
+
+## `1.0.0`
+
+- Initial release of WooAdvancePay.
+
+
 
 
 
