@@ -1,0 +1,98 @@
+msgid ""
+msgstr ""
+
+msgid "WooAdvancePay"
+msgstr "WooAdvancePay"
+
+msgid "Enhance WooCommerce with advanced payment options for cash on delivery orders in specific localities."
+msgstr "Enhance WooCommerce with advanced payment options for cash on delivery orders in specific localities."
+
+msgid "Version"
+msgstr "Versión"
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Text Domain"
+msgstr "Dominio del texto"
+
+msgid "License"
+msgstr "Licencia"
+
+msgid "License URI"
+msgstr "URI de licencia"
+
+msgid "Enable Advanced Payment for Cash on Delivery"
+msgstr "Habilitar el pago anticipado para contra reembolso"
+
+msgid "Specify Localities for Advance Payments"
+msgstr "Especifique localidades para pagos anticipados"
+
+msgid "Set Advance Payment Percentage or Fixed Amount"
+msgstr "Establecer porcentaje de pago anticipado o importe fijo"
+
+msgid "Seamless Integration with WooCommerce"
+msgstr "Integración perfecta con WooCommerce"
+
+msgid "User-Friendly Interface for Customers"
+msgstr "Interfaz fácil de usar para los clientes"
+
+msgid "For Store Owners"
+msgstr "Para propietarios de tiendas"
+
+msgid "Improved Cash Flow"
+msgstr "Flujo de caja mejorado"
+
+msgid "Customized Localized Payments"
+msgstr "Pagos localizados personalizados"
+
+msgid "For Customers"
+msgstr "Para los clientes"
+
+msgid "Flexibility and Trust"
+msgstr "Flexibilidad y confianza"
+
+msgid "Personalized Shopping Experience"
+msgstr "Experiencia de compra personalizada"
+
+msgid "Installation"
+msgstr "Instalación"
+
+msgid "Frequently Asked Questions"
+msgstr "Preguntas frequentes"
+
+msgid "Can I specify different localities for advance payments?"
+msgstr "¿Puedo especificar diferentes localidades para pagos anticipados?"
+
+msgid "Yes, WooAdvancePay allows you to define specific localities where advance payments are applicable."
+msgstr "Sí, WooAdvancePay le permite definir localidades específicas donde se aplican los pagos anticipados."
+
+msgid "How do customers make partial payments?"
+msgstr "¿Cómo hacen los clientes pagos parciales?"
+
+msgid "Customers can make partial payments during the checkout process when the cash on delivery option is selected."
+msgstr "Los clientes pueden realizar pagos parciales durante el proceso de pago cuando se selecciona la opción de pago contra reembolso."
+
+msgid "WooAdvancePay Settings"
+msgstr "Configuración de WooAdvancePay"
+
+msgid "Advance Payment Type"
+msgstr "Tipo de pago anticipado"
+
+msgid "Percentage"
+msgstr "Porcentaje"
+
+msgid "Fixed Amount"
+msgstr "Importe fijo"
+
+msgid "Advance Payment Percentage"
+msgstr "Porcentaje de pago anticipado"
+
+msgid "Advance Payment Fixed Amount"
+msgstr "Importe fijo de pago anticipado"
+
+msgid "Advance Payment Localities"
+msgstr "Localidades de pago anticipado"
+
+msgid "Save Settings"
+msgstr "Guardar configuración"

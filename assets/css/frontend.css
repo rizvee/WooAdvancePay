@@ -1,0 +1,29 @@
+/* Include Bootstrap styles */
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css');
+
+/* Add your custom styles for the frontend here */
+
+/* Example styles for a container */
+.wooadvancepay-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Example styles for a partial payment form */
+#wooadvancepay-partial-payment-form {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+#wooadvancepay-partial-payment-form h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#wooadvancepay-partial-payment-form p {
+    font-size: 14px;
+    line-height: 1.5;
+}
