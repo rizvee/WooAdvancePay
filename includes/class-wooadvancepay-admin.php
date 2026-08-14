@@ -1,154 +1,70 @@
 <?php
+/** Settings screen. */
+
+defined( 'ABSPATH' ) || exit;
 
 class WooAdvancePay_Admin {
+	public function __construct() {
+		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
+		add_action( 'admin_init', array( $this, 'register_settings' ) );
+	}
 
-    /**
-     * Constructor.
-     *
-     * @since 1.0.0
-     */
-    public function __construct() {
-        add_action('admin_menu', [$this, 'admin_menu']);
-        add_action('wp_ajax_wooadvancepay_save_settings', [$this, 'ajax_save_settings']);
-    }
+	public function admin_menu() {
+		add_submenu_page( 'woocommerce', __( 'Advance payments', 'wooadvancepay' ), __( 'Advance payments', 'wooadvancepay' ), 'manage_woocommerce', 'wooadvancepay', array( $this, 'settings_page' ) );
+	}
 
-    /**
-     * Add the plugin settings menu to the WordPress admin.
-     *
-     * @since 1.0.0
-     */
-    public function admin_menu() {
-        add_menu_page(
-            'WooAdvancePay Settings',
-            'WooAdvancePay',
-            'manage_options',
-            'wooadvancepay',
-            [$this, 'settings_page'],
-            'dashicons-money'
-        );
-    }
+	public function register_settings() {
+		register_setting( 'wooadvancepay', 'wooadvancepay_payment_type', array( 'type' => 'string', 'sanitize_callback' => array( $this, 'sanitize_type' ), 'default' => 'percentage' ) );
+		register_setting( 'wooadvancepay', 'wooadvancepay_advance_payment_percentage', array( 'type' => 'number', 'sanitize_callback' => array( $this, 'sanitize_percentage' ), 'default' => 10 ) );
+		register_setting( 'wooadvancepay', 'wooadvancepay_advance_payment_fixed_amount', array( 'type' => 'number', 'sanitize_callback' => array( $this, 'sanitize_amount' ), 'default' => 0 ) );
+		register_setting( 'wooadvancepay', 'wooadvancepay_advance_payment_localities', array( 'type' => 'array', 'sanitize_callback' => array( $this, 'sanitize_zones' ), 'default' => array() ) );
+	}
 
-    /**
-     * Render the plugin settings page.
-     *
-     * @since 1.0.0
-     */
-    public function settings_page() {
-        if (!current_user_can('manage_options')) {
-            wp_die(__('You do not have sufficient permissions to access this page.'));
-        }
+	public function sanitize_type( $value ) {
+		return in_array( $value, array( 'percentage', 'fixed_amount' ), true ) ? $value : 'percentage';
+	}
 
-        // Retrieve existing plugin settings
-        $advance_payment_percentage = get_option('wooadvancepay_advance_payment_percentage');
-        $advance_payment_fixed_amount = get_option('wooadvancepay_advance_payment_fixed_amount');
-        $advance_payment_localities = get_option('wooadvancepay_advance_payment_localities');
-        $payment_type = get_option('wooadvancepay_payment_type', 'percentage'); // Default to percentage
+	public function sanitize_percentage( $value ) {
+		return min( 100, max( 0, (float) wc_format_decimal( $value ) ) );
+	}
 
-        ?>
-        <div class="wrap">
-            <h2>WooAdvancePay Settings</h2>
+	public function sanitize_amount( $value ) {
+		return max( 0, (float) wc_format_decimal( $value ) );
+	}
 
-            <form id="wooadvancepay-settings-form" method="post">
-                <table class="form-table">
-                    <!-- Form fields for selecting advance payment type -->
-                    <tr>
-                        <th scope="row">Advance Payment Type</th>
-                        <td>
-                            <label for="advance_payment_type_percentage">
-                                <input type="radio" name="advance_payment_type" id="advance_payment_type_percentage" value="percentage" <?php checked($payment_type, 'percentage'); ?>>
-                                Percentage
-                            </label>
-                            <br>
-                            <label for="advance_payment_type_fixed_amount">
-                                <input type="radio" name="advance_payment_type" id="advance_payment_type_fixed_amount" value="fixed_amount" <?php checked($payment_type, 'fixed_amount'); ?>>
-                                Fixed Amount
-                            </label>
-                        </td>
-                    </tr>
-                    <!-- Form fields for entering advance payment percentage and fixed amount -->
-                    <tr class="payment-type-field" id="percentage_field" style="<?php echo $payment_type === 'percentage' ? '' : 'display:none;'; ?>">
-                        <th scope="row">Advance Payment Percentage</th>
-                        <td><input type="number" name="advance_payment_percentage" value="<?php echo esc_attr($advance_payment_percentage); ?>" class="regular-input"></td>
-                    </tr>
-                    <tr class="payment-type-field" id="fixed_amount_field" style="<?php echo $payment_type === 'fixed_amount' ? '' : 'display:none;'; ?>">
-                        <th scope="row">Advance Payment Fixed Amount</th>
-                        <td><input type="number" name="advance_payment_fixed_amount" value="<?php echo esc_attr($advance_payment_fixed_amount); ?>" class="regular-input"></td>
-                    </tr>
-                    <!-- Form field for entering advance payment localities -->
-                    <tr>
-                        <th scope="row">Advance Payment Localities</th>
-                        <td><textarea name="advance_payment_localities" rows="5" class="regular-input"><?php echo esc_textarea($advance_payment_localities); ?></textarea></td>
-                    </tr>
-                </table>
+	public function sanitize_zones( $value ) {
+		return array_values( array_unique( array_map( 'absint', (array) $value ) ) );
+	}
 
-                <?php wp_nonce_field('wooadvancepay_save_settings', '_wpnonce'); ?>
-
-                <!-- Submit button to save settings -->
-                <p class="submit">
-                    <button type="submit" class="button-primary">Save Settings</button>
-                </p>
-
-                <div class="wooadvancepay-settings-message"></div>
-            </form>
-        </div>
-        <?php
-    }
-
-    /**
-     * AJAX handler for saving settings.
-     *
-     * @since 1.0.0
-     */
-    public function ajax_save_settings() {
-        // Nonce Verification
-        check_ajax_referer('wooadvancepay_save_settings', '_wpnonce');
-
-        // Permission Check
-        if (!current_user_can('manage_options')) {
-            wp_send_json_error(['message' => 'Permission denied.'], 403);
-            wp_die();
-        }
-
-        // Retrieve and Sanitize Data
-        $payment_type = isset($_POST['advance_payment_type']) ? sanitize_text_field($_POST['advance_payment_type']) : '';
-        $percentage = isset($_POST['advance_payment_percentage']) ? floatval($_POST['advance_payment_percentage']) : '';
-        $fixed_amount = isset($_POST['advance_payment_fixed_amount']) ? floatval($_POST['advance_payment_fixed_amount']) : '';
-        $localities = isset($_POST['advance_payment_localities']) ? sanitize_textarea_field($_POST['advance_payment_localities']) : '';
-
-        // Validate Data
-        if (!in_array($payment_type, ['percentage', 'fixed_amount'])) {
-            wp_send_json_error(['message' => 'Invalid payment type.'], 400);
-            wp_die();
-        }
-
-        if ($payment_type === 'percentage') {
-            if ($percentage < 0 || $percentage > 100) {
-                wp_send_json_error(['message' => 'Percentage must be between 0 and 100.'], 400);
-                wp_die();
-            }
-        } elseif ($payment_type === 'fixed_amount') {
-            if ($fixed_amount < 0) {
-                wp_send_json_error(['message' => 'Fixed amount must be greater than or equal to 0.'], 400);
-                wp_die();
-            }
-        }
-
-
-        // Save Options
-        update_option('wooadvancepay_payment_type', $payment_type);
-
-        if ($payment_type === 'percentage') {
-            update_option('wooadvancepay_advance_payment_percentage', $percentage);
-            delete_option('wooadvancepay_advance_payment_fixed_amount'); // Clear the other type
-        } elseif ($payment_type === 'fixed_amount') {
-            update_option('wooadvancepay_advance_payment_fixed_amount', $fixed_amount);
-            delete_option('wooadvancepay_advance_payment_percentage'); // Clear the other type
-        }
-
-        update_option('wooadvancepay_advance_payment_localities', $localities);
-
-        // Send Response
-        wp_send_json_success(['message' => 'Settings saved successfully!']);
-        wp_die();
-    }
+	public function settings_page() {
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			return;
+		}
+		$type     = get_option( 'wooadvancepay_payment_type', 'percentage' );
+		$selected = WooAdvancePay::get_zone_ids();
+		$zones    = WC_Shipping_Zones::get_zones();
+		$zones[0] = array( 'zone_id' => 0, 'zone_name' => __( 'Locations not covered by your other zones', 'wooadvancepay' ) );
+		?>
+		<div class="wrap">
+			<h1><?php echo esc_html__( 'Advance payment settings', 'wooadvancepay' ); ?></h1>
+			<p><?php echo esc_html__( 'For matching shipping zones, checkout charges only the deposit through an enabled online payment gateway. Cash on delivery is hidden and the saved balance is due on delivery.', 'wooadvancepay' ); ?></p>
+			<?php settings_errors(); ?>
+			<form action="options.php" method="post">
+				<?php settings_fields( 'wooadvancepay' ); ?>
+				<table class="form-table" role="presentation">
+					<tr><th scope="row"><?php echo esc_html__( 'Deposit type', 'wooadvancepay' ); ?></th><td>
+						<label><input type="radio" name="wooadvancepay_payment_type" value="percentage" <?php checked( $type, 'percentage' ); ?>> <?php echo esc_html__( 'Percentage', 'wooadvancepay' ); ?></label><br>
+						<label><input type="radio" name="wooadvancepay_payment_type" value="fixed_amount" <?php checked( $type, 'fixed_amount' ); ?>> <?php echo esc_html__( 'Fixed amount', 'wooadvancepay' ); ?></label>
+					</td></tr>
+					<tr><th scope="row"><label for="wooadvancepay-percentage"><?php echo esc_html__( 'Percentage', 'wooadvancepay' ); ?></label></th><td><input id="wooadvancepay-percentage" name="wooadvancepay_advance_payment_percentage" type="number" min="0" max="100" step="0.01" value="<?php echo esc_attr( get_option( 'wooadvancepay_advance_payment_percentage', 10 ) ); ?>"> %</td></tr>
+					<tr><th scope="row"><label for="wooadvancepay-fixed"><?php echo esc_html__( 'Fixed amount', 'wooadvancepay' ); ?></label></th><td><input id="wooadvancepay-fixed" name="wooadvancepay_advance_payment_fixed_amount" type="number" min="0" step="<?php echo esc_attr( pow( 10, -wc_get_price_decimals() ) ); ?>" value="<?php echo esc_attr( get_option( 'wooadvancepay_advance_payment_fixed_amount', 0 ) ); ?>"> <span class="description"><?php echo esc_html( get_woocommerce_currency() ); ?></span></td></tr>
+					<tr><th scope="row"><label for="wooadvancepay-zones"><?php echo esc_html__( 'Shipping zones', 'wooadvancepay' ); ?></label></th><td><select id="wooadvancepay-zones" name="wooadvancepay_advance_payment_localities[]" multiple size="<?php echo esc_attr( min( 10, max( 3, count( $zones ) ) ) ); ?>" class="regular-text">
+						<?php foreach ( $zones as $zone ) : ?><option value="<?php echo esc_attr( $zone['zone_id'] ); ?>" <?php selected( in_array( (int) $zone['zone_id'], $selected, true ) ); ?>><?php echo esc_html( $zone['zone_name'] ); ?></option><?php endforeach; ?>
+					</select><p class="description"><?php echo esc_html__( 'Select one or more zones. Hold Ctrl (Windows) or Command (macOS) to select multiple zones.', 'wooadvancepay' ); ?></p></td></tr>
+				</table>
+				<?php submit_button(); ?>
+			</form>
+		</div>
+		<?php
+	}
 }
