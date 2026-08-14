@@ -1,98 +1,96 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Hasan Rizvee
+# This file is distributed under the same license as the Advance Deposits for WooCommerce package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
 msgid ""
 msgstr ""
+"Project-Id-Version: Advance Deposits for WooCommerce 2.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/rizvee/WooAdvancePay/issues\n"
+"POT-Creation-Date: 2026-08-14 07:41+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 
-msgid "WooAdvancePay"
-msgstr "WooAdvancePay"
+#: wooadvancepay.php:71
+msgid "WooAdvancePay requires WooCommerce to be installed and active."
+msgstr ""
 
-msgid "Enhance WooCommerce with advanced payment options for cash on delivery orders in specific localities."
-msgstr "Enhance WooCommerce with advanced payment options for cash on delivery orders in specific localities."
+#: includes/class-wooadvancepay-admin.php:13
+msgid "Advance payments"
+msgstr ""
 
-msgid "Version"
-msgstr "Versión"
+#: includes/class-wooadvancepay-admin.php:46
+msgid "Locations not covered by your other zones"
+msgstr ""
 
-msgid "Author"
-msgstr "Autor"
+#: includes/class-wooadvancepay-admin.php:49
+msgid "Advance payment settings"
+msgstr ""
 
-msgid "Text Domain"
-msgstr "Dominio del texto"
+#: includes/class-wooadvancepay-admin.php:50
+msgid ""
+"For matching shipping zones, checkout charges only the deposit through an "
+"enabled online payment gateway. Cash on delivery is hidden and the saved "
+"balance is due on delivery."
+msgstr ""
 
-msgid "License"
-msgstr "Licencia"
+#: includes/class-wooadvancepay-admin.php:55
+msgid "Deposit type"
+msgstr ""
 
-msgid "License URI"
-msgstr "URI de licencia"
-
-msgid "Enable Advanced Payment for Cash on Delivery"
-msgstr "Habilitar el pago anticipado para contra reembolso"
-
-msgid "Specify Localities for Advance Payments"
-msgstr "Especifique localidades para pagos anticipados"
-
-msgid "Set Advance Payment Percentage or Fixed Amount"
-msgstr "Establecer porcentaje de pago anticipado o importe fijo"
-
-msgid "Seamless Integration with WooCommerce"
-msgstr "Integración perfecta con WooCommerce"
-
-msgid "User-Friendly Interface for Customers"
-msgstr "Interfaz fácil de usar para los clientes"
-
-msgid "For Store Owners"
-msgstr "Para propietarios de tiendas"
-
-msgid "Improved Cash Flow"
-msgstr "Flujo de caja mejorado"
-
-msgid "Customized Localized Payments"
-msgstr "Pagos localizados personalizados"
-
-msgid "For Customers"
-msgstr "Para los clientes"
-
-msgid "Flexibility and Trust"
-msgstr "Flexibilidad y confianza"
-
-msgid "Personalized Shopping Experience"
-msgstr "Experiencia de compra personalizada"
-
-msgid "Installation"
-msgstr "Instalación"
-
-msgid "Frequently Asked Questions"
-msgstr "Preguntas frequentes"
-
-msgid "Can I specify different localities for advance payments?"
-msgstr "¿Puedo especificar diferentes localidades para pagos anticipados?"
-
-msgid "Yes, WooAdvancePay allows you to define specific localities where advance payments are applicable."
-msgstr "Sí, WooAdvancePay le permite definir localidades específicas donde se aplican los pagos anticipados."
-
-msgid "How do customers make partial payments?"
-msgstr "¿Cómo hacen los clientes pagos parciales?"
-
-msgid "Customers can make partial payments during the checkout process when the cash on delivery option is selected."
-msgstr "Los clientes pueden realizar pagos parciales durante el proceso de pago cuando se selecciona la opción de pago contra reembolso."
-
-msgid "WooAdvancePay Settings"
-msgstr "Configuración de WooAdvancePay"
-
-msgid "Advance Payment Type"
-msgstr "Tipo de pago anticipado"
-
+#: includes/class-wooadvancepay-admin.php:56
+#: includes/class-wooadvancepay-admin.php:59
 msgid "Percentage"
-msgstr "Porcentaje"
+msgstr ""
 
-msgid "Fixed Amount"
-msgstr "Importe fijo"
+#: includes/class-wooadvancepay-admin.php:57
+#: includes/class-wooadvancepay-admin.php:60
+msgid "Fixed amount"
+msgstr ""
 
-msgid "Advance Payment Percentage"
-msgstr "Porcentaje de pago anticipado"
+#: includes/class-wooadvancepay-admin.php:61
+msgid "Shipping zones"
+msgstr ""
 
-msgid "Advance Payment Fixed Amount"
-msgstr "Importe fijo de pago anticipado"
+#: includes/class-wooadvancepay-admin.php:63
+msgid ""
+"Select one or more zones. Hold Ctrl (Windows) or Command (macOS) to select "
+"multiple zones."
+msgstr ""
 
-msgid "Advance Payment Localities"
-msgstr "Localidades de pago anticipado"
+#. translators: 1: deposit amount, 2: amount due on delivery.
+#: includes/class-wooadvancepay-public.php:23
+#, php-format
+msgid "Pay %1$s securely now. The remaining %2$s is due on delivery."
+msgstr ""
 
-msgid "Save Settings"
-msgstr "Guardar configuración"
+#: includes/class-wooadvancepay.php:106
+msgid "Balance due on delivery"
+msgstr ""
+
+#: includes/class-wooadvancepay.php:112
+#, php-format
+msgid "Online deposit: %1$s. Balance due on delivery: %2$s."
+msgstr ""
+
+#. translators: %s: formatted deposit amount.
+#: includes/class-wooadvancepay.php:138
+#, php-format
+msgid "Paid online: %s"
+msgstr ""
+
+#. translators: %s: formatted balance due amount.
+#: includes/class-wooadvancepay.php:140
+#, php-format
+msgid "Due on delivery: %s"
+msgstr ""
+
+#: includes/class-wooadvancepay.php:141
+msgid "Advance payment"
+msgstr ""

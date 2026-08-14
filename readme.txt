@@ -1,79 +1,75 @@
-=== WooAdvancePay ===
-Contributors: Hasan Rizvee
-Tags: WooCommerce, Payment Gateway, Delivery Charge, Partial Payment
-Requires at least: 4.0
-Tested up to: 6.4
-Stable tag: 1.2.1
+=== Advance Deposits for WooCommerce ===
+Contributors: hasanrizvee
+Tags: woocommerce, deposit, partial payment, cash on delivery, checkout
+Requires at least: 6.5
+Tested up to: 6.8
+Requires PHP: 7.4
+Stable tag: 2.0.0
 License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Enhance WooCommerce with advance payment for cash on delivery to a certain locality.
+Collect an online deposit and leave the remaining balance due on delivery for selected WooCommerce shipping zones.
 
 == Description ==
 
-WooAdvancePay is a WooCommerce plugin designed to revolutionize your online store by introducing advanced payment options for cash on delivery orders in specific localities. Providing both store owners and customers unprecedented flexibility, WooAdvancePay ensures a seamless shopping experience.
+Advance Deposits for WooCommerce changes the payable checkout total to a percentage or fixed deposit when the customer's address matches a configured WooCommerce shipping zone. The customer pays that deposit with any enabled online gateway. Cash on delivery is hidden for the deposit transaction, and the original total, deposit, and balance due on delivery are recorded on the order.
 
-**Key Features:**
-1. **Partial Payment:** Allow customers to make advance payments for cash on delivery orders.
-2. **Locality-based:** Specify localities where advance payments are applicable.
-3. **Enhanced Flexibility:** Set either a percentage or a fixed amount for the advance payment.
-4. **Seamless Integration:** Easily integrates with your existing WooCommerce setup.
-5. **User-Friendly:** Provides a smooth and intuitive user interface for customers.
+No external service is contacted by this plugin. Payment data is handled by the WooCommerce payment gateway selected by the customer.
 
-== Why WooAdvancePay? ==
+= Features =
 
-**For Store Owners:**
-- **Improve Cash Flow:** WooAdvancePay helps store owners manage their cash flow more efficiently by securing advance payments before product delivery.
-- **Customized Localized Payments:** Tailor payment options based on specific localities, allowing for a more personalized shopping experience.
+* Percentage or fixed-amount deposits.
+* Native WooCommerce shipping-zone selector.
+* Server-side calculation; customer-submitted amounts are never trusted.
+* Deposit and remaining balance shown to customers and administrators.
+* WooCommerce High-Performance Order Storage (HPOS) compatible.
+* Translation-ready and built with WordPress Settings API and WooCommerce CRUD APIs.
 
-**For Customers:**
-- **Flexibility and Trust:** Offer customers the convenience of paying a part of their order in advance, increasing trust and satisfaction.
-- **Personalized Shopping Experience:** Enjoy a tailored shopping experience with advanced payment options based on your locality.
+= Important checkout requirement =
+
+This version supports the classic WooCommerce checkout. It declares the Cart and Checkout Blocks incompatible so WooCommerce can warn administrators rather than silently process an incorrect total. At least one online payment gateway must be enabled for applicable zones.
 
 == Installation ==
 
-1. Upload the `wooadvancepay` folder to the `/wp-content/plugins/` directory or install the plugin through the WordPress plugins screen directly.
-2. Activate the plugin through the 'Plugins' screen in WordPress.
-3. Navigate to WooCommerce settings and configure WooAdvancePay according to your preferences.
+1. Install and activate WooCommerce.
+2. Upload the plugin folder to `/wp-content/plugins/`, or install the ZIP through **Plugins > Add New > Upload Plugin**.
+3. Activate Advance Deposits for WooCommerce.
+4. Go to **WooCommerce > Advance payments**.
+5. Select the deposit type, enter an amount, and select one or more shipping zones.
+6. Ensure the checkout page uses the classic `[woocommerce_checkout]` shortcode and an online payment gateway is enabled.
 
 == Frequently Asked Questions ==
 
-= Can I specify different localities for advance payments? =
-Yes, WooAdvancePay allows you to define specific localities where advance payments are applicable.
+= Does the plugin process payment card information? =
 
-= How can customers make partial payments? =
-Customers can make partial payments during the checkout process when the cash on delivery option is selected.
+No. The enabled WooCommerce payment gateway processes the deposit. Advance Deposits for WooCommerce only calculates the payable deposit and records the remaining balance.
+
+= Why is cash on delivery hidden? =
+
+A deposit must be collected online. For applicable orders, customers choose an enabled online gateway for the deposit; the recorded remainder is collected on delivery.
+
+= Does this support Checkout Blocks? =
+
+Not currently. Use the classic checkout shortcode. The plugin explicitly declares Checkout Blocks incompatible to prevent unexpected totals.
+
+= What happens if a fixed deposit is equal to or greater than the order total? =
+
+The plugin leaves checkout unchanged. A deposit must be greater than zero and less than the original order total.
+
+= Is order storage with HPOS supported? =
+
+Yes. Order data is stored through WooCommerce CRUD methods.
 
 == Changelog ==
 
-= 1.2.1 =
-* Improved compatibility with WooCommerce 6.4.
-
-= 1.2.0 =
-* Added feature: Localized payments based on specified localities.
-* Enhanced user interface for better user experience.
-
-= 1.1.0 =
-* Added feature: Option to set either a percentage or a fixed amount for advance payments.
-* Improved plugin integration with WooCommerce.
-
-= 1.0.0 =
-* Initial release.
+= 2.0.0 =
+* Rebuilt deposit calculation and checkout integration.
+* Added validated native settings and shipping-zone selection.
+* Added HPOS-compatible order metadata and customer/admin balance summaries.
+* Removed remote CSS, obsolete templates, unsafe output, broken JavaScript, and duplicate order hooks.
+* Added dependency and compatibility declarations.
 
 == Upgrade Notice ==
 
-= 1.2.1 =
-We recommend updating to this version for improved compatibility with the latest WooCommerce release.
-
-== Screenshots ==
-1. WooAdvancePay settings page.
-2. Checkout page with advanced delivery charge option.
-
-== Connect with us ==
-
-* [GitHub Repository](https://github.com/rizvee)
-* [LinkedIn](https://linkedin.com/in/hasanrizvee)
-
-== License ==
-
-WooAdvancePay is licensed under the GPLv2 or later. See `license.txt` for further details.
+= 2.0.0 =
+Review and save your shipping zones under WooCommerce > Advance payments. Classic checkout is required.
