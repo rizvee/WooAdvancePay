@@ -1,0 +1,43 @@
+name: Build and release plugin
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Package plugin
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Build installable ZIP
+        env:
+          EXPECTED_VERSION: ${{ github.ref_type == 'tag' && github.ref_name || '' }}
+        run: ./bin/build-release.sh
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: advance-deposits-for-woocommerce
+          path: |
+            dist/*.zip
+            dist/*.sha256
+          if-no-files-found: error
+
+      - name: Publish GitHub release
+        if: github.ref_type == 'tag'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          gh release create "${GITHUB_REF_NAME}"
+          dist/*.zip dist/*.sha256
+          --verify-tag
+          --generate-notes
+          --title "Advance Deposits for WooCommerce ${GITHUB_REF_NAME#v}"

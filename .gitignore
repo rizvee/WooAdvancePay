@@ -29,3 +29,6 @@ Thumbs.db
 # Ignore Node.js-related files
 node_modules/
 npm-debug.log
+
+# Generated release packages.
+dist/
